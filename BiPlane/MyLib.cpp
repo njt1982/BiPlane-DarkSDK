@@ -1,9 +1,4 @@
 #include "MyLib.h"
-#include "DarkGDK.h"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 
 float MyLib::randFloat(void) { return (float)rand() / (float)RAND_MAX; }
@@ -28,4 +23,33 @@ MyTimer& MyTimer::get() {
 void MyTimer::tick(void) {
 	this->t = (0.8 * this->t) + (0.2 * (0.001 * (dbTimer() - this->lastTime)));
 	this->lastTime = dbTimer();
+}
+
+
+
+
+
+
+
+
+MyIdHandler* MyIdHandler::instance = NULL;
+
+MyIdHandler::MyIdHandler(void) {
+	for (int i = 100; i >0; i--) {
+		this->ids.push(i);
+	}
+}
+
+
+MyIdHandler& MyIdHandler::get(void) {
+	if (instance == NULL) {
+		instance = new MyIdHandler();
+	}
+	return *instance;
+}
+
+int MyIdHandler::getId(void) {
+	int i = ids.top();
+	ids.pop();
+	return i;
 }

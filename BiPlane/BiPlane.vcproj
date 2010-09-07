@@ -39,7 +39,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="$(ENET_LIB_PATH)/include"
 				PreprocessorDefinitions="WIN32"
-				RuntimeLibrary="1"
+				RuntimeLibrary="0"
 				DebugInformationFormat="4"
 			/>
 			<Tool
@@ -105,6 +105,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="$(ENET_LIB_PATH)/include"
+				PreprocessorDefinitions="WIN32"
 				RuntimeLibrary="0"
 			/>
 			<Tool
@@ -171,34 +173,6 @@
 				RelativePath=".\World.cpp"
 				>
 			</File>
-			<Filter
-				Name="Network"
-				>
-				<Filter
-					Name="Client"
-					>
-					<File
-						RelativePath=".\NetworkClient.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\NetworkClient.h"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="Server"
-					>
-					<File
-						RelativePath=".\NetworkServer.cpp"
-						>
-					</File>
-					<File
-						RelativePath=".\NetworkServer.h"
-						>
-					</File>
-				</Filter>
-			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\MyLib.h"

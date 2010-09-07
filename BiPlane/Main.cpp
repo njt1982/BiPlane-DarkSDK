@@ -22,48 +22,20 @@ const int CLOUD_OFFSET = 10;
 void DarkGDK ( void ){
 	srand(time(NULL));
 
+	dbSyncOn();
+	dbSyncRate(0);
+
+	dbSetDisplayModeAntialias(1280, 800, 32, 1, 0, 0);
+	dbSetCameraAspect(0, 1280.0 / 800.0);
+	dbSetWindowPosition(0, 0);
+
+
+
 	World *w = new World();
 
 
-	// turn on sync rate and set maximum rate to 60 fps
-	dbSyncOn();
-	dbSyncRate(75);
-
-	dbSetDisplayModeAntialias(1280, 800, 32, 0, 2, 0);
-	dbSetCameraAspect(0, 1.6);
-	dbSetWindowPosition(0, 0);
-
-	// SKY
-	dbMakeObjectPlain(1, w->getWidth(), w->getHeight());
-	dbPositionObject(1, 0, w->getHeight() / 2.0, 5);
-	dbPointObject(1, 0,  w->getHeight() / 2.0, 0);
-	dbColorObject(1, w->getSkyColor());
 
 
-	// GROUND
-	dbMakeObjectPlain(2, w->getWidth(), 50.0f);
-	dbPositionObject(2, 0, 10, 0);
-	dbPointObject(2, 0, 100, 0);
-	dbColorObject(2, w->getGroundColor());
-
-
-
-
-
-
-
-	for (int i = 0; i < CLOUD_COUNT; i++) {
-		Cloud c = w->getCloud(i);
-
-		int obj = CLOUD_OFFSET + i;
-		dbMakeObjectPlain(obj, 96.0, 96.0);
-		dbPositionObject(obj, c.getX(), c.getY(), (i * -0.1) - 10.0);
-		dbPointObject(obj, c.getX(), c.getY(), -15);
-
-		dbLoadImage("Media/cloud1.png", obj);
-		dbTextureObject(obj, obj);
-		dbSetObjectTransparency(obj, 5);
-	}	
 
 
 
@@ -91,11 +63,6 @@ void DarkGDK ( void ){
 	dbPositionCamera(0,  w->getHeight() / 2.0, -120);
 	dbPointCamera(0,  w->getHeight() / 2.0, 0);
 	dbSetPointLight(0, dbCameraPositionX(), dbCameraPositionY(), dbCameraPositionZ());
-
-	if (enet_initialize() != 0) {
-		fprintf(stderr, "An error occured while initiating ENet.\n");
-		return;
-	}
 
 
 	// This forces the timer to initialise
@@ -147,10 +114,10 @@ void DarkGDK ( void ){
 		w->updateCloudPositions();
 		for (int i = 0; i < CLOUD_COUNT; i++) {
 			int obj = CLOUD_OFFSET + i;
-			Cloud c = w->getCloud(i);
+			Cloud* c = w->getCloud(i);
 
 			// TODO: Sort out the Z-Depth here...
-			dbPositionObject(obj, c.getX(), c.getY(), dbObjectPositionZ(obj));
+			dbPositionObject(obj, c->getX(), c->getY(), dbObjectPositionZ(obj));
 
 			/*
 			if (cloudSpeed[i] > 0 ) {
@@ -187,13 +154,10 @@ void DarkGDK ( void ){
 			*/
 		}
 
-
-
 		// update the screen
-		dbSync ( );
+		dbSync();
 	}
 
-	// return back to windows
-	atexit(enet_deinitialize);
+
 	return;
 }
