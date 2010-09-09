@@ -154,6 +154,10 @@
 			Filter="txt;cpp;h&quot;n"
 			>
 			<File
+				RelativePath=".\BiPlaneGameState.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Cloud.cpp"
 				>
 			</File>
@@ -179,7 +183,15 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath=".\BiPlaneGameState.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Cloud.h"
+			>
+		</File>
+		<File
+			RelativePath=".\GameState.h"
 			>
 		</File>
 		<File

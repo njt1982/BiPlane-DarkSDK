@@ -2,18 +2,19 @@
 #define PLAYER_INCLUDED
 
 
-//#include "World.h"
 
 
 class Player {
-	float x, y, speed, angle, angleDelta, mass, throttle;
+	float x, y, speed, speedX, speedY, angle, angleDelta, mass, throttle, startX, startY;
 	int objId, textureId, shadowId, shadowTextureId;
-	//World* w;
+	bool local, stalled, takingOff;
 
 public:
-	Player(float x, float y);
+	Player(float x, float y, float groundHeight);
 	Player(void);
 	~Player(void);
+
+	bool isLocal(void);
 
 	float getX(void);
 	float getY(void);
@@ -22,6 +23,7 @@ public:
 	float getAngleDelta(void);
 	float getMass(void);
 	float getThrottle(void);
+	//int getObjectId(void);
 
 	void setX(float x);
 	void setY(float y);
@@ -31,6 +33,11 @@ public:
 	void setMass(float mass);
 	void setThrottle(float throttle);
 
+	void setStalled(void);
+	bool isStalled(void);
+
+	bool isTakingOff(void);
+
 	void pitchUp(void);
 	void pitchDown(void);
 	void pitchReturn(void);
@@ -39,7 +46,9 @@ public:
 	void updateSpeed(void);
 	void updatePosition(void);
 
-	void moveObject(void);
+	void restartPlayer(void);
+
+	void moveObject(float worldHeight);
 };
 
 

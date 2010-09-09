@@ -1,12 +1,8 @@
-//#pragma once
-
 #ifndef WORLD_INCLUDED
 #define WORLD_INCLUDED
 
 
 #include <time.h>
-#include <iostream>
-#include <vector>
 #include "MyLib.h"
 #include "Player.h"
 #include "DarkGDK.h"
@@ -19,9 +15,8 @@ const int CLOUD_COUNT = 4;
 
 
 class World {
-	float width, height;
+	float width, height, groundHeight, ceilingHeight;
 	std::vector<Cloud> clouds;
-	std::vector<Player> players;
 
 	int skyId, groundId, cloudTextureId;
 	const static int skyColor = 0x5050FF;
@@ -35,13 +30,11 @@ public:
 	float getWidth();
 	float getHeight();
 
+	float getGroundHeight();
+	//float getCeilingHeight();
+
 	Cloud* getCloud(int id);
 	void updateCloudPositions(void);
-
-	void addPlayer(void);
-	Player* getPlayer(int id);
-
-	void checkPlayerBoundaries(Player *p);
 };
 
 #endif

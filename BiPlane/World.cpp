@@ -15,11 +15,13 @@ World::World(void) {
 
 
 	// GROUND
+	this->groundHeight = 10.0f;
 	this->groundId = MyIdHandler::get().getObjectId();
 	dbMakeObjectPlain(this->groundId, this->width, 50.0f);
-	 dbPositionObject(this->groundId, 0, 10, 0);
-	    dbPointObject(this->groundId, 0, 100, 0);
+	 dbPositionObject(this->groundId, 0, this->groundHeight, 0);
+	    dbPointObject(this->groundId, 0, this->groundHeight + 1.0, 0);
 	    dbColorObject(this->groundId, this->groundColor);
+
 
 
 	this->cloudTextureId = MyIdHandler::get().getImageId();
@@ -46,6 +48,9 @@ World::World(void) {
 	}
 }
 
+float World::getGroundHeight(void) { return this->groundHeight; }
+//float World::getCeilingHeight(void) { return this->ceilingHeight; }
+
 Cloud* World::getCloud(int id) {
 	return &this->clouds[id];
 }
@@ -66,28 +71,9 @@ void World::updateCloudPositions(void) {
 float World::getWidth(void)  { return this->width; }
 float World::getHeight(void) { return this->height; }
 
-void World::addPlayer(void) {
-	Player p = Player(0.0f, 60.0f);
-	p.setMass(2.0f);
-	p.setSpeed(40.0f);
-	p.setThrottle(5.0f);
-
-	this->players.push_back(p);
-}
-
-Player* World::getPlayer(int id) {
-	return &this->players.at(id);
-}
 
 
-void World::checkPlayerBoundaries(Player *p) {
-	if (p->getX() < (-this->width / 2.0f)) {
-		p->setX(p->getX() + this->width);
-	}
-	else if (p->getX() > (this->width / 2.0)) {
-		p->setX(p->getX() - this->width);
-	}
-}
+
 
 
 World::~World(void) {}
