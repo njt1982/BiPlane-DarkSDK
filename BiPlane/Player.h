@@ -1,7 +1,10 @@
 #pragma once
 
+
 class Player {
-float x, y, speed, angle, angleDelta, mass, throttle;
+	float x, y, speed, angle, angleDelta, mass, throttle;
+	int objId, textureId, shadowId, shadowTextureId;
+	//World* w;
 
 public:
 	Player(float x, float y);
@@ -31,4 +34,6 @@ public:
 	void updateAngle(void);
 	void updateSpeed(void);
 	void updatePosition(void);
+
+	void moveObject(void);
 };

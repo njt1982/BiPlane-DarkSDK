@@ -13,6 +13,24 @@ Player::Player(float x, float y) {
 	this->y = y;
 
 	this->throttle = this->speed = this->angleDelta = this->angle = this->mass = 0.0f;
+
+	this->objId = MyIdHandler::get().getObjectId();
+	this->textureId = MyIdHandler::get().getImageId();
+
+	dbLoadObject("Media/BiPlane-uv.x", this->objId);
+	dbLoadImage("Media/plane.bmp", this->textureId);
+	dbTextureObject(this->objId, this->textureId);
+
+
+	this->shadowId = MyIdHandler::get().getObjectId();
+	this->shadowTextureId = MyIdHandler::get().getImageId();
+
+	dbMakeObjectPlain(this->shadowId, dbObjectSizeX(this->objId), dbObjectSizeZ(this->objId));
+	dbPositionObject(this->shadowId, this->x, dbObjectPositionY(2) + 0.1, 0);
+	dbPointObject(this->shadowId, this->x, dbObjectPositionY(2) + 100, 0);
+	dbLoadImage("Media/shadow.png", this->shadowTextureId);
+	dbTextureObject(this->shadowId, this->shadowTextureId);
+	dbSetObjectTransparency(this->shadowId, 1);
 }
 
 float Player::getX(void)          { return this->x; }
@@ -74,4 +92,9 @@ void Player::updatePosition(void) {
 
 	this->x += dbCos(this->angle) * s;
 	this->y += dbSin(this->angle) * s;
+
+	dbPositionObject(this->objId, this->x, this->y, 0);
+	dbRotateObject(this->objId, 0, 0, this->angle);
+
+	dbPositionObject(this->shadowId, this->x, dbObjectPositionY(2) + 0.1, 0);
 }

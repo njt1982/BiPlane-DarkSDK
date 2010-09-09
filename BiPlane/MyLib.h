@@ -36,7 +36,9 @@ public:
 
 
 class MyIdHandler {
-	std::stack<int> ids;
+	std::stack<int> objects;
+	std::stack<int> images;
+
 	static MyIdHandler* instance;
 
 	MyIdHandler(void);
@@ -44,5 +46,6 @@ class MyIdHandler {
 
 public:
 	static MyIdHandler& get();
-	int getId(void);
+	int getObjectId(void);
+	int getImageId(void);
 };

@@ -21,7 +21,7 @@ MyTimer& MyTimer::get() {
 	return *myInstance;
 }
 void MyTimer::tick(void) {
-	this->t = (0.8 * this->t) + (0.2 * (0.001 * (dbTimer() - this->lastTime)));
+	this->t = (0.95 * this->t) + (0.05 * (0.001 * (dbTimer() - this->lastTime)));
 	this->lastTime = dbTimer();
 }
 
@@ -36,7 +36,8 @@ MyIdHandler* MyIdHandler::instance = NULL;
 
 MyIdHandler::MyIdHandler(void) {
 	for (int i = 100; i >0; i--) {
-		this->ids.push(i);
+		this->objects.push(i);
+		this->images.push(i);
 	}
 }
 
@@ -48,8 +49,13 @@ MyIdHandler& MyIdHandler::get(void) {
 	return *instance;
 }
 
-int MyIdHandler::getId(void) {
-	int i = ids.top();
-	ids.pop();
+int MyIdHandler::getObjectId(void) {
+	int i = objects.top();
+	objects.pop();
+	return i;
+}
+int MyIdHandler::getImageId(void) {
+	int i = images.top();
+	images.pop();
 	return i;
 }
