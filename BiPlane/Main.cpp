@@ -7,9 +7,8 @@
 #include "MyLib.h"
 #include "DarkGDK.h"
 
-
-#include "World.h"
 #include "Player.h"
+#include "World.h"
 
 const int CLOUD_OFFSET = 10;
 

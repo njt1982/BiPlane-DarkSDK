@@ -154,6 +154,10 @@
 			Filter="txt;cpp;h&quot;n"
 			>
 			<File
+				RelativePath=".\Cloud.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Main.cpp"
 				>
 			</File>
@@ -174,6 +178,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\Cloud.h"
+			>
+		</File>
 		<File
 			RelativePath=".\MyLib.h"
 			>

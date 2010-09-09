@@ -1,4 +1,8 @@
-#pragma once
+#ifndef PLAYER_INCLUDED
+#define PLAYER_INCLUDED
+
+
+//#include "World.h"
 
 
 class Player {
@@ -37,3 +41,6 @@ public:
 
 	void moveObject(void);
 };
+
+
+#endif

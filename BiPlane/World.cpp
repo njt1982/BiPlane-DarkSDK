@@ -1,15 +1,6 @@
 #include "World.h"
 
 
-Cloud::Cloud(float x, float y, float z, float speed) {
-	this->x = x;
-	this->y = y;
-	this->z = z;
-	this->speed = speed;
-}
-
-
-
 
 World::World(void) {
 	this->width = 240.0f;
@@ -72,6 +63,8 @@ void World::updateCloudPositions(void) {
 	}
 }
 
+float World::getWidth(void)  { return this->width; }
+float World::getHeight(void) { return this->height; }
 
 void World::addPlayer(void) {
 	Player p = Player(0.0f, 60.0f);

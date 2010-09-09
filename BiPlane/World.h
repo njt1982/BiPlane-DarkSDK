@@ -1,4 +1,8 @@
-#pragma once
+//#pragma once
+
+#ifndef WORLD_INCLUDED
+#define WORLD_INCLUDED
+
 
 #include <time.h>
 #include <iostream>
@@ -6,32 +10,10 @@
 #include "MyLib.h"
 #include "Player.h"
 #include "DarkGDK.h"
-
+#include "Cloud.h"
 
 
 const int CLOUD_COUNT = 4;
-
-
-
-class Cloud {
-	float x, y, z, speed;
-	int id;
-
-public:
-	Cloud() {}
-	Cloud(float x, float y, float z,float speed);
-
-	float getX() { return this->x; }
-	float getY() { return this->y; }
-	float getZ() { return this->z; }
-	float getSpeed() { return this->speed; }
-	void move(float t) { x += speed * t; }
-
-	int getObjectId() { return this->id; }
-	void setObjectId(int id) { this->id = id; }
-};
-
-
 
 
 
@@ -50,8 +32,8 @@ public:
 	~World(void);
 
 	
-	float getWidth() { return width; }
-	float getHeight() { return height; }
+	float getWidth();
+	float getHeight();
 
 	Cloud* getCloud(int id);
 	void updateCloudPositions(void);
@@ -61,3 +43,5 @@ public:
 
 	void checkPlayerBoundaries(Player *p);
 };
+
+#endif
