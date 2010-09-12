@@ -50,4 +50,9 @@ public:
 	int getObjectId(void);
 	int getImageId(void);
 	int getSpriteId(void);
+
+	void MyIdHandler::putObjectIdBack(int i);
+	void MyIdHandler::putImageIdBack(int i);
+	void MyIdHandler::putSpriteIdBack(int i);
+
 };

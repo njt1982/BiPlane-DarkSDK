@@ -23,48 +23,28 @@ World::World(void) {
 	    dbColorObject(this->groundId, this->groundColor);
 
 
-
-	this->cloudTextureId = MyIdHandler::get().getImageId();
-	dbLoadImage("Media/cloud1.png", this->cloudTextureId);
-
-	for (int i = 0; i < CLOUD_COUNT; i++) {
-		float x = (MyLib::randFloat() * this->width) - (0.5f * this->width);
-		float y = (0.5f * MyLib::randFloat() * this->height) + (0.5f * this->height);
-		float z = (i * -0.1) - 10.0;
-		float speed = (MyLib::randFloat() - 0.5) * 15.0f;
-
-		
-		Cloud c = Cloud(x, y, z, speed);
-		c.setObjectId(MyIdHandler::get().getObjectId());
-
-		dbMakeObjectPlain(c.getObjectId(), 96.0, 96.0);
-		dbPositionObject(c.getObjectId(), c.getX(), c.getY(), c.getZ());
-		dbPointObject(c.getObjectId(), c.getX(), c.getY(), -100);
-
-		dbTextureObject(c.getObjectId(), this->cloudTextureId);
-		dbSetObjectTransparency(c.getObjectId(), 5);
-
-		this->clouds.push_back(c);
+	for (int i = 0; i < 10; i++) {
+		this->clouds.push_back(Cloud(this->width, this->height));
 	}
 }
 
 float World::getGroundHeight(void) { return this->groundHeight; }
-//float World::getCeilingHeight(void) { return this->ceilingHeight; }
+
+
 
 Cloud* World::getCloud(int id) {
 	return &this->clouds[id];
 }
 
 
-void World::updateCloudPositions(void) {
-	float t = MyTimer::get().getT();
+void World::updateCloudPositions(float t) {
+	std::vector<Cloud>::iterator cloud;
 
-	Cloud *c;
-	for (int i = 0; i < CLOUD_COUNT; i++) {
-		c = &this->clouds[i];
-		c->move(t);
-		dbPositionObject(c->getObjectId(), c->getX(), c->getY(), c->getZ());
-
+	cloud = clouds.begin();
+	while (cloud != clouds.end()) {
+		cloud->move(t);
+		cloud->edgeCheck(this->width);
+		++cloud;
 	}
 }
 

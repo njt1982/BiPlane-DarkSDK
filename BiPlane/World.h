@@ -31,10 +31,9 @@ public:
 	float getHeight();
 
 	float getGroundHeight();
-	//float getCeilingHeight();
 
 	Cloud* getCloud(int id);
-	void updateCloudPositions(void);
+	void updateCloudPositions(float t);
 };
 
 #endif

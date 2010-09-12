@@ -66,3 +66,7 @@ int MyIdHandler::getSpriteId(void) {
 	return i;
 }
 
+void MyIdHandler::putObjectIdBack(int i) { objects.push(i); }
+void MyIdHandler::putImageIdBack(int i)  { images.push(i); }
+void MyIdHandler::putSpriteIdBack(int i) { sprites.push(i); }
+

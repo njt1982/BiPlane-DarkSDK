@@ -41,9 +41,9 @@ public:
 	void pitchDown(void);
 	void pitchReturn(void);
 
-	void updateAngle(void);
-	void updateSpeed(void);
-	void updatePosition(void);
+	void updateAngle(float t);
+	void updateSpeed(float t);
+	void updatePosition(float t);
 
 	void restartPlayer(void);
 

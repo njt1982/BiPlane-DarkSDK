@@ -16,8 +16,6 @@ BiPlaneGameState::BiPlaneGameState(void) {
 
 
 bool BiPlaneGameState::update(float t) {
-	//Player* p = &this->players.at(0);
-	//players.begin();
 	std::map<unsigned int, Player>::iterator pIterator;
 
 	Player *p;
@@ -44,9 +42,9 @@ bool BiPlaneGameState::update(float t) {
 
 
 		this->checkPlayerBoundaries(p);
-		p->updateAngle();
-		p->updateSpeed();
-		p->updatePosition();
+		p->updateAngle(t);
+		p->updateSpeed(t);
+		p->updatePosition(t);
 		p->moveObject(w->getHeight());
 
 		if (p->isLocal()) {
@@ -59,7 +57,8 @@ bool BiPlaneGameState::update(float t) {
 
 
 	// UPDATE THE CLOUD(S)
-	w->updateCloudPositions();
+	w->updateCloudPositions(t);
+	/*
 	for (int i = 0; i < CLOUD_COUNT; i++) {
 		int obj = CLOUD_OFFSET + i;
 		Cloud* c = w->getCloud(i);
@@ -67,7 +66,6 @@ bool BiPlaneGameState::update(float t) {
 		// TODO: Sort out the Z-Depth here...
 		dbPositionObject(obj, c->getX(), c->getY(), dbObjectPositionZ(obj));
 
-		/*
 		if (cloudSpeed[i] > 0 ) {
 			if (cloudPos[i] - (dbObjectSizeX(obj) / 2.0) > (WORLD_WIDTH / 2.0)) {
 				cloudPos[i] -= WORLD_WIDTH;
@@ -99,8 +97,8 @@ bool BiPlaneGameState::update(float t) {
 			}
 		}
 		dbPositionObject(obj, cloudPos[i], dbObjectPositionY(obj), dbObjectPositionZ(obj));
-		*/
 	}
+	*/
 
 	gameUI->drawSpeedo();
 	return true;

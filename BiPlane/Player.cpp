@@ -80,8 +80,8 @@ void Player::restartPlayer(void) {
 }
 
 
-void Player::updateAngle(void) {
-	this->angle += this->angleDelta * MyTimer::get().getT();
+void Player::updateAngle(float t) {
+	this->angle += this->angleDelta * t;
 
 	if (this->angle < -180) {
 		this->angle += 360.0;
@@ -93,9 +93,7 @@ void Player::updateAngle(void) {
 
 
 // TODO: Use radians instead of degrees!!
-void Player::updateSpeed(void) {
-	float t = MyTimer::get().getT();
-
+void Player::updateSpeed(float t) {
 	if (this->stalled) {
 		this->speedY += t * -9.8f * this->mass;
 		float fallingAngle = dbAtanFull(this->speedX, this->speedY);
@@ -138,9 +136,7 @@ void Player::updateSpeed(void) {
 
 
 
-void Player::updatePosition(void) {
-	float t = MyTimer::get().getT();
-
+void Player::updatePosition(float t) {
 	// Move the plane based on component speed and time
 	this->x += this->speedX * t;
 	this->y += this->speedY * t;
