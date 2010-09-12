@@ -1,8 +1,8 @@
 #include "BiPlaneGameState.h"
 
 BiPlaneGameState::BiPlaneGameState(void) {
-
 	w = new World();
+	gameUI = &BiPlaneGameUI::getInstance();
 
 	// Add the local player
 	this->addPlayer(1);
@@ -48,6 +48,10 @@ bool BiPlaneGameState::update(float t) {
 		p->updateSpeed();
 		p->updatePosition();
 		p->moveObject(w->getHeight());
+
+		if (p->isLocal()) {
+			gameUI->setSpeed(p->getSpeed());
+		}
 	}
 
 
@@ -97,6 +101,8 @@ bool BiPlaneGameState::update(float t) {
 		dbPositionObject(obj, cloudPos[i], dbObjectPositionY(obj), dbObjectPositionZ(obj));
 		*/
 	}
+
+	gameUI->drawSpeedo();
 	return true;
 }
 

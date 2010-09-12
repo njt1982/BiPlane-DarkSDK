@@ -9,6 +9,7 @@
 
 #include "Player.h"
 #include "World.h"
+#include "BiPlaneGameUI.h"
 
 const int CLOUD_OFFSET = 10;
 
@@ -16,6 +17,8 @@ const int CLOUD_OFFSET = 10;
 
 class BiPlaneGameState : public GameState {
 	World* w;
+	BiPlaneGameUI* gameUI;
+
 	std::map<unsigned int, Player> players;
 
 	void addPlayer(unsigned int playerId);

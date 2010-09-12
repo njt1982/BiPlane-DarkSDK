@@ -14,6 +14,7 @@ Player::Player(float x, float y, float groundHeight) {
 
 	this->local = true;
 	this->mass = 0.0f;
+	this->dragCoefficient = 0.1;
 
 	this->restartPlayer();
 
@@ -54,11 +55,6 @@ void Player::setThrottle(float throttle) { this->throttle = throttle; }
 
 void Player::setStalled(void) {
 	this->stalled = true;
-	/*
-	this->speed = 20.0f;
-	this->speedX = dbSin(this->angle) * this->speed;
-	this->speedY = dbCos(this->angle) * this->speed;
-	*/
 }
 
 bool Player::isLocal(void) { return this->local; }
@@ -76,8 +72,8 @@ void Player::restartPlayer(void) {
 	this->x = this->startX;
 	this->y = this->startY;
 	this->angle = 90.0f;
-	this->speed = 10.0f;
-	this->throttle = 10.0f;
+	this->speed = 0.0f;
+	this->throttle = 15.0f;
 	this->angleDelta = this->speedX = this->speedY = 0.0f;
 	this->stalled = false;
 	this->takingOff = true;
@@ -123,8 +119,8 @@ void Player::updateSpeed(void) {
 	// We need drag to pull us back... This should help us acheive a "terminal velocity"
 	// Drag only applied above a minimum speed
 	// TODO: This seems wrong...
-	if (this->speed > 30.0) {
-		float drag = pow((this->speed - 30.0) * 0.1, 2);
+	if (this->speed > 20.0) {
+		float drag = pow((this->speed - 20.0) * this->dragCoefficient, 2);
 		this->speed -= t * drag;
 	}
 

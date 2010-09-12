@@ -38,6 +38,7 @@ MyIdHandler::MyIdHandler(void) {
 	for (int i = 100; i >0; i--) {
 		this->objects.push(i);
 		this->images.push(i);
+		this->sprites.push(i);
 	}
 }
 
@@ -59,3 +60,9 @@ int MyIdHandler::getImageId(void) {
 	images.pop();
 	return i;
 }
+int MyIdHandler::getSpriteId(void) {
+	int i = sprites.top();
+	sprites.pop();
+	return i;
+}
+

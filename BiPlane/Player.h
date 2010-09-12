@@ -5,7 +5,7 @@
 
 
 class Player {
-	float x, y, speed, speedX, speedY, angle, angleDelta, mass, throttle, startX, startY;
+	float x, y, speed, speedX, speedY, dragCoefficient, angle, angleDelta, mass, throttle, startX, startY;
 	int objId, textureId, shadowId, shadowTextureId;
 	bool local, stalled, takingOff;
 
@@ -23,7 +23,6 @@ public:
 	float getAngleDelta(void);
 	float getMass(void);
 	float getThrottle(void);
-	//int getObjectId(void);
 
 	void setX(float x);
 	void setY(float y);

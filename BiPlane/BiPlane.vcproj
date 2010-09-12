@@ -158,6 +158,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\BiPlaneGameUI.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\Cloud.cpp"
 				>
 			</File>
@@ -184,6 +188,10 @@
 		</Filter>
 		<File
 			RelativePath=".\BiPlaneGameState.h"
+			>
+		</File>
+		<File
+			RelativePath=".\BiPlaneGameUI.h"
 			>
 		</File>
 		<File
