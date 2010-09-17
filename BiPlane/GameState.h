@@ -1,6 +1,9 @@
 #ifndef GAMESTATE_INCLUDED
 #define GAMESTATE_INCLUDED
 
+/**
+ * Base GameState class
+ */
 class GameState {
 public:
 	GameState() {};

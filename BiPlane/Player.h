@@ -2,8 +2,9 @@
 #define PLAYER_INCLUDED
 
 
-
-
+/**
+ * Define a Player object
+ */
 class Player {
 	float x, y, speed, speedX, speedY, dragCoefficient, angle, angleDelta, mass, throttle, startX, startY;
 	int objId, textureId, shadowId, shadowTextureId;

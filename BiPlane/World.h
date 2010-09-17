@@ -1,19 +1,21 @@
 #ifndef WORLD_INCLUDED
 #define WORLD_INCLUDED
 
-
+// Load some core libraries
 #include <time.h>
+
+// Load some custom libraries
 #include "MyLib.h"
-#include "Player.h"
 #include "DarkGDK.h"
+#include "Player.h"
 #include "Cloud.h"
 
 
-const int CLOUD_COUNT = 4;
 
 
-
-
+/**
+ * Custom "World" Class - defines the game environment (width, height, etc). + Create World entities
+ */
 class World {
 	float width, height, groundHeight, ceilingHeight;
 	std::vector<Cloud> clouds;
@@ -32,7 +34,6 @@ public:
 
 	float getGroundHeight();
 
-	Cloud* getCloud(int id);
 	void updateCloudPositions(float t);
 };
 

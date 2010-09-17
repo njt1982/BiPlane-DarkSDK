@@ -124,7 +124,5 @@ void BiPlaneGameState::checkPlayerBoundaries(Player *p) {
 }
 
 
-
+// Destructor method
 BiPlaneGameState::~BiPlaneGameState(void) {}
-
-

@@ -1,20 +1,20 @@
 #ifndef CLOUD_INCLUDED
 #define CLOUD_INCLUDED
 
+// Include custom libraries
 #include "DarkGDK.h"
 #include "MyLib.h"
 
 
+/**
+ * Cloud class - defines a cloud's postion, speed, rotationspeed, angle and size
+ */
 class Cloud {
 	float x, y, z, speed, rotateSpeed, angle, size;
 	int id;
 
 	int instanceId;
-
 	static int textureImageId, counter;
-
-	//void makeInstance(void);
-	//void destroyInstance(void);
 
 public:
 	Cloud() {}

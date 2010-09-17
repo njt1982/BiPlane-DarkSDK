@@ -1,15 +1,21 @@
-#pragma once
+#ifndef MYLIB_INCLUDED
+#define MYLIB_INCLUDED
 
-#include "DarkGDK.h"
-
+// Load some core libraries
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
 #include <stack>
 
+// Load some custom libraries
+#include "DarkGDK.h"		// Load the Graphics Engine
 
 
+
+/**
+ * Custom class for holding some "one off" static functions
+ */
 class MyLib {
 public:
 	static float randFloat(void);
@@ -17,7 +23,9 @@ public:
 
 
 
-
+/**
+ * A Timer Singleton
+ */
 class MyTimer {
 float t, lastTime;
 
@@ -34,7 +42,9 @@ public:
 
 
 
-
+/**
+ * An ID Handler Singleton
+ */
 class MyIdHandler {
 	std::stack<int> objects;
 	std::stack<int> images;
@@ -54,5 +64,5 @@ public:
 	void MyIdHandler::putObjectIdBack(int i);
 	void MyIdHandler::putImageIdBack(int i);
 	void MyIdHandler::putSpriteIdBack(int i);
-
 };
+#endif

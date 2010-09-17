@@ -27,7 +27,7 @@ BiPlaneGameUI::BiPlaneGameUI(void) {
 	// Define the needle sprite, offsetting it's center so it pivots nicely
 	dbSprite(this->speedoNeedleSpriteId, 0, 0, this->speedoNeedleImageId);
 	dbHideSprite(this->speedoNeedleSpriteId);
-	dbOffsetSprite(this->speedoNeedleSpriteId, 42, 38);
+	dbOffsetSprite(this->speedoNeedleSpriteId, 43, 12);
 	dbSetSpriteAlpha(this->speedoNeedleSpriteId, 33);
 
 	// Define the position of the speedo...
@@ -43,7 +43,7 @@ BiPlaneGameUI::BiPlaneGameUI(void) {
 void BiPlaneGameUI::setSpeed(float s) {
 	// TODO: Better angle calculation, possible based on a players Max speed?
 	// -100 is the starting angle and the rotation is "twice the speed".
-	float angle = -100 + (s * 2.0);
+	float angle = -90 + (s * 2.0);
 
 	// Rotate the needle to the configured angle
 	dbRotateSprite(this->speedoNeedleSpriteId, angle);
