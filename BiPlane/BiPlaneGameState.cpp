@@ -1,27 +1,42 @@
 #include "BiPlaneGameState.h"
 
+// Creator method
 BiPlaneGameState::BiPlaneGameState(void) {
+	// Create a world
 	w = new World();
+
+	// Grab a reference to the GameUI (used later to allow an update loop to control the speedo)
 	gameUI = &BiPlaneGameUI::getInstance();
 
 	// Add the local player
 	this->addPlayer(1);
 
+	// TODO: Add more local or other remote players
 
+	// Define the camera and light positions
 	dbPositionCamera(0, w->getHeight() / 2.0, -120);
 	dbPointCamera(0, w->getHeight() / 2.0, 0);
 	dbSetPointLight(0, dbCameraPositionX(), dbCameraPositionY(), dbCameraPositionZ());
 }
 
 
-
+// Update method - this is called every loop
 bool BiPlaneGameState::update(float t) {
+	// Create an itterator of Players - keeps it flexible
 	std::map<unsigned int, Player>::iterator pIterator;
 
+	// Define a Player pointer - keeps the following code clean and readable
 	Player *p;
+
+	// Go through the iterator of players
 	for (pIterator = players.begin(); pIterator != players.end(); pIterator++) {
+		// Grab the player object
 		p = &pIterator->second;
+
+		// If the player is local...
 		if (p->isLocal()) {
+			// DEBUG CODE: show speed and height
+			// TODO: Improve speedo and add altometer
 			dbText(0, 10, dbStr(p->getSpeed()));
 			dbText(0, 20, dbStr(p->getY()));
 			
@@ -40,85 +55,59 @@ bool BiPlaneGameState::update(float t) {
 			}
 		}
 
-
+		// Is the player on screen, or has he crashed, gone too high or looped off the edge
 		this->checkPlayerBoundaries(p);
+
+		// Update the angle
 		p->updateAngle(t);
+
+		// Update the speed
 		p->updateSpeed(t);
+
+		// Update the position (based on angle and speed above)
 		p->updatePosition(t);
+
+		// Move the object
 		p->moveObject(w->getHeight());
 
+		// If the player is local, then update the speedo
 		if (p->isLocal()) {
 			gameUI->setSpeed(p->getSpeed());
 		}
 	}
 
-
-
-
-
-	// UPDATE THE CLOUD(S)
+	// Update the cloud positions
 	w->updateCloudPositions(t);
-	/*
-	for (int i = 0; i < CLOUD_COUNT; i++) {
-		int obj = CLOUD_OFFSET + i;
-		Cloud* c = w->getCloud(i);
 
-		// TODO: Sort out the Z-Depth here...
-		dbPositionObject(obj, c->getX(), c->getY(), dbObjectPositionZ(obj));
+	// Render the GameUI
+	gameUI->render();
 
-		if (cloudSpeed[i] > 0 ) {
-			if (cloudPos[i] - (dbObjectSizeX(obj) / 2.0) > (WORLD_WIDTH / 2.0)) {
-				cloudPos[i] -= WORLD_WIDTH;
-				if (dbObjectExist(obj + 10)) { dbDeleteObject(obj + 10); }
-			}
-			else if (cloudPos[i] + (dbObjectSizeX(obj) / 2.0) > (WORLD_WIDTH / 2.0)) {
-				if (!dbObjectExist(obj + 10)) {
-					dbInstanceObject(obj + 10, obj);
-					dbPositionObject(obj + 10, 0, 0, 0);
-					dbPointObject(obj + 10, 0, 0, -5);
-					dbSetObjectTransparency(obj + 10, 5);
-				}
-				dbPositionObject(obj + 10, cloudPos[i] - WORLD_WIDTH, dbObjectPositionY(obj), dbObjectPositionZ(obj));
-			}
-		}
-		else if (cloudSpeed[i] < 0 ) {
-			if (cloudPos[i] + (dbObjectSizeX(obj) / 2.0) < (-WORLD_WIDTH / 2.0)) {
-				cloudPos[i] += WORLD_WIDTH;
-				if (dbObjectExist(obj + 10)) { dbDeleteObject(obj + 10); }
-			}
-			else if (cloudPos[i] - (dbObjectSizeX(obj) / 2.0) < (-WORLD_WIDTH / 2.0)) {
-				if (!dbObjectExist(obj + 10)) {
-					dbInstanceObject(obj + 10, obj);
-					dbPositionObject(obj + 10, 0, 0, 0);
-					dbPointObject(obj + 10, 0, 0, -5);
-					dbSetObjectTransparency(obj + 10, 5);
-				}
-				dbPositionObject(obj + 10, cloudPos[i] + WORLD_WIDTH, dbObjectPositionY(obj), dbObjectPositionZ(obj));
-			}
-		}
-		dbPositionObject(obj, cloudPos[i], dbObjectPositionY(obj), dbObjectPositionZ(obj));
-	}
-	*/
-
-	gameUI->drawSpeedo();
+	// The loop completed sucessfully!
 	return true;
 }
 
 
+// Private method for adding a new plauer to the world.
 void BiPlaneGameState::addPlayer(unsigned int playerId) {
+	// Create a new Player object, defining starting X and Y, along with the ground height.
 	Player p = Player(-w->getWidth() * 0.45f, w->getGroundHeight() + 0.5f, w->getGroundHeight());
+
+	// Define a player mass (TODO: players will be able to define their own plane stats)
 	p.setMass(3.0f);
 
+	// Add this player to the list
 	this->players[playerId] = p;
 }
 
 
-
+// Private boundary checking method
 void BiPlaneGameState::checkPlayerBoundaries(Player *p) {
-	// Check against screen horizontal edges
+	// Check against screen horizontal edges.
+	// If off the left, push over to the right
 	if (p->getX() < (-w->getWidth() / 2.0f)) {
 		p->setX(p->getX() + w->getWidth());
 	}
+	// If off the right, push over to the left.
 	else if (p->getX() > (w->getWidth() / 2.0)) {
 		p->setX(p->getX() - w->getWidth());
 	}
