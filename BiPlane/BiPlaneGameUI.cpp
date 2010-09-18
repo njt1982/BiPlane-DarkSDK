@@ -5,7 +5,9 @@ BiPlaneGameUI* BiPlaneGameUI::instance = NULL;
 
 
 // Implement the creator method
-BiPlaneGameUI::BiPlaneGameUI(void) {
+BiPlaneGameUI::BiPlaneGameUI(void) {}
+
+void BiPlaneGameUI::addPlayerSpeedo(void) {
 	// Get the ID Handling singlton
 	MyIdHandler* mih = &MyIdHandler::get();
 
@@ -38,6 +40,7 @@ BiPlaneGameUI::BiPlaneGameUI(void) {
 	this->needleX = this->speedoX + (dbSpriteWidth(this->speedoSpriteId) / 2);
 	this->needleY = this->speedoY + (dbSpriteHeight(this->speedoSpriteId) / 2);
 }
+
 
 // Set the speedo speed value
 void BiPlaneGameUI::setSpeed(float s) {

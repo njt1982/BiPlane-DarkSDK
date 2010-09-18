@@ -16,8 +16,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory=".\bin\$(ConfigurationName)"
+			IntermediateDirectory=".\bin\int\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -37,7 +37,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(ENET_LIB_PATH)/include"
+				AdditionalIncludeDirectories="&quot;$(ENET_LIB_PATH)\include&quot;;&quot;$(CEGUI_LIB_PATH)\cegui\include&quot;"
 				PreprocessorDefinitions="WIN32"
 				RuntimeLibrary="0"
 				DebugInformationFormat="4"
@@ -53,8 +53,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="enet.lib ws2_32.lib"
-				AdditionalLibraryDirectories="$(ENET_LIB_PATH)\Release"
+				AdditionalDependencies="enet.lib ws2_32.lib CEGUIBase.lib CEGUICoronaImageCodec.lib CEGUIDevILImageCodec.lib CEGUIDirect3D9Renderer.lib CEGUIExpatParser.lib CEGUIFalagardWRBase.lib CEGUIFreeImageImageCodec.lib CEGUILuaScriptModule.lib CEGUIOpenGLRenderer.lib CEGUISILLYImageCodec.lib CEGUITGAImageCodec.lib tolua++.lib"
+				AdditionalLibraryDirectories="&quot;$(ENET_LIB_PATH)\Release&quot;;&quot;$(CEGUI_LIB_PATH)\lib&quot;"
 				IgnoreDefaultLibraryNames="libcmtd, msvcrt, atls"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -79,13 +79,13 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="echo Copying updated media files from &apos; $(ProjectDir)Media&apos; to &apos;$(OutDir)\Media&apos;...&#x0D;&#x0A;xcopy &quot;$(ProjectDir)Media&quot; &quot;$(OutDir)\Media&quot; /D /E /I /F /H /R /K /Y&#x0D;&#x0A;"
+				CommandLine="echo Copying updated media files from &apos; $(ProjectDir)Media&apos; to &apos;$(OutDir)\Media&apos;...&#x0D;&#x0A;xcopy &quot;$(ProjectDir)Media&quot; &quot;$(OutDir)\Media&quot; /D /E /I /F /H /R /K /Y&#x0D;&#x0A;&#x0D;&#x0A;echo Copying updated libs from &apos; $(ProjectDir)libs\Debug\*&apos; to &apos;$(OutDir)\libs&apos;...&#x0D;&#x0A;xcopy &quot;$(ProjectDir)lib\Debug\*&quot; &quot;$(OutDir)&quot; /D /E /I /F /H /R /K /Y&#x0D;&#x0A;&#x0D;&#x0A;"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory=".\bin\$(ConfigurationName)"
+			IntermediateDirectory=".\bin\int\$(ConfigurationName)"
 			ConfigurationType="1"
 			>
 			<Tool
@@ -105,7 +105,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(ENET_LIB_PATH)/include"
+				AdditionalIncludeDirectories="&quot;$(ENET_LIB_PATH)\include&quot;;&quot;$(CEGUI_LIB_PATH)\cegui\include&quot;"
 				PreprocessorDefinitions="WIN32"
 				RuntimeLibrary="0"
 			/>
@@ -120,6 +120,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="enet.lib ws2_32.lib CEGUIBase.lib CEGUICoronaImageCodec.lib CEGUIDevILImageCodec.lib CEGUIDirect3D9Renderer.lib CEGUIExpatParser.lib CEGUIFalagardWRBase.lib CEGUIFreeImageImageCodec.lib CEGUILuaScriptModule.lib CEGUIOpenGLRenderer.lib CEGUISILLYImageCodec.lib CEGUITGAImageCodec.lib tolua++.lib"
+				AdditionalLibraryDirectories="&quot;$(ENET_LIB_PATH)\Release&quot;;&quot;$(CEGUI_LIB_PATH)\lib&quot;"
 				IgnoreDefaultLibraryNames="libcmtd, msvcrt, atls"
 				SubSystem="2"
 			/>
@@ -143,6 +145,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
+				CommandLine="echo Copying updated media files from &apos; $(ProjectDir)Media&apos; to &apos;$(OutDir)\Media&apos;...&#x0D;&#x0A;xcopy &quot;$(ProjectDir)Media&quot; &quot;$(OutDir)\Media&quot; /D /E /I /F /H /R /K /Y&#x0D;&#x0A;&#x0D;&#x0A;echo Copying updated libs from &apos; $(ProjectDir)libs\Debug\*&apos; to &apos;$(OutDir)\libs&apos;...&#x0D;&#x0A;xcopy &quot;$(ProjectDir)lib\$(ConfigurationName)\*&quot; &quot;$(OutDir)&quot; /D /E /I /F /H /R /K /Y"
 			/>
 		</Configuration>
 	</Configurations>
@@ -182,6 +185,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\StartMenuGameState.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\World.cpp"
 				>
 			</File>
@@ -208,6 +215,10 @@
 		</File>
 		<File
 			RelativePath=".\Player.h"
+			>
+		</File>
+		<File
+			RelativePath=".\StartMenuGameState.h"
 			>
 		</File>
 		<File

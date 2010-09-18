@@ -25,12 +25,15 @@ class BiPlaneGameState : public GameState {
 
 	std::map<unsigned int, Player> players;
 
-	void addPlayer(unsigned int playerId);
 	void checkPlayerBoundaries(Player *p);
+
+	void updatePlayers(float t);
 
 public:
 	BiPlaneGameState(void);
 	~BiPlaneGameState(void);
+
+	void addPlayer(unsigned int playerId);
 
 	bool update(float t);
 };

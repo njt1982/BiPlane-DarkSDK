@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<GUILayout >
+    <Window Type="DefaultWindow" Name="Root" >
+        <Property Name="UnifiedAreaRect" Value="{{0,0},{0,0},{1,0},{1,0}}" />
+        <Window Type="TaharezLook/FrameWindow" Name="Root/frmMain" >
+            <Property Name="Font" Value="DejaVuSans-10" />
+            <Property Name="Text" Value="Main" />
+            <Property Name="Alpha" Value="0.75" />
+            <Property Name="TitlebarFont" Value="DejaVuSans-10" />
+            <Property Name="RollUpEnabled" Value="False" />
+            <Property Name="SizingEnabled" Value="False" />
+            <Property Name="TitlebarEnabled" Value="True" />
+            <Property Name="UnifiedAreaRect" Value="{{0.3,0},{0.35,0},{0.7,0},{0.65,0}}" />
+            <Window Type="TaharezLook/Button" Name="Root/frmMain/startServer" >
+                <Property Name="Text" Value="Start Server" />
+                <Property Name="UnifiedAreaRect" Value="{{0.2,0},{0.2,0},{0.8,0},{0.4,0}}" />
+            </Window>
+            <Window Type="TaharezLook/Button" Name="Root/frmMain/connect" >
+                <Property Name="Text" Value="Connect To Server" />
+                <Property Name="UnifiedAreaRect" Value="{{0.6,0},{0.2,0},{0.8,0},{0.8,0}}" />
+            </Window>
+        </Window>
+    </Window>
+</GUILayout>

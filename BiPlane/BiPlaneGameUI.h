@@ -21,6 +21,7 @@ public:
 	static BiPlaneGameUI& getInstance();
 
 	void setSpeed(float s);
+	void addPlayerSpeedo(void);
 	void render(void);
 };
 

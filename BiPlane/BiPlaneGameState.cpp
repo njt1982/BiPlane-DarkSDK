@@ -9,7 +9,7 @@ BiPlaneGameState::BiPlaneGameState(void) {
 	gameUI = &BiPlaneGameUI::getInstance();
 
 	// Add the local player
-	this->addPlayer(1);
+	//this->addPlayer(1);
 
 	// TODO: Add more local or other remote players
 
@@ -22,6 +22,22 @@ BiPlaneGameState::BiPlaneGameState(void) {
 
 // Update method - this is called every loop
 bool BiPlaneGameState::update(float t) {
+	if (players.size() > 0) {
+		this->updatePlayers(t);
+	}
+
+	// Update the cloud positions
+	w->updateCloudPositions(t);
+
+	// Render the GameUI
+	gameUI->render();
+
+	// The loop completed sucessfully!
+	return true;
+}
+
+
+void BiPlaneGameState::updatePlayers(float t) {
 	// Create an itterator of Players - keeps it flexible
 	std::map<unsigned int, Player>::iterator pIterator;
 
@@ -75,15 +91,6 @@ bool BiPlaneGameState::update(float t) {
 			gameUI->setSpeed(p->getSpeed());
 		}
 	}
-
-	// Update the cloud positions
-	w->updateCloudPositions(t);
-
-	// Render the GameUI
-	gameUI->render();
-
-	// The loop completed sucessfully!
-	return true;
 }
 
 
@@ -97,6 +104,9 @@ void BiPlaneGameState::addPlayer(unsigned int playerId) {
 
 	// Add this player to the list
 	this->players[playerId] = p;
+
+	// Add the HUD for the player
+	this->gameUI->addPlayerSpeedo();
 }
 
 

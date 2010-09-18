@@ -8,7 +8,8 @@
 // Include some custom libraries
 #include "MyLib.h"				// Contains the Frame Timer amongst other things
 #include "DarkGDK.h"			// The Graphics Engine
-#include "BiPlaneGameState.h"	// The Game State controller class
+#include "StartMenuGameState.h"	// The start menu Game State controller class
+#include "BiPlaneGameState.h"	// The main Game State controller class
 
 
 // Hard coded variable for conveniently toggling fullscreeen
@@ -37,32 +38,65 @@ void DarkGDK ( void ){
 	else {
 		dbSetDisplayModeAntialias(1280, 800, 32, 1, 0, 0);
 		dbSetCameraAspect(0, 1280.0 / 800.0);
-		dbSetWindowPosition(32, 32);
+
+		int winPosX = (dbDesktopWidth() - dbScreenWidth()) / 2;
+		int winPosY = (dbDesktopHeight() - dbScreenHeight()) / 2;
+
+		dbSetWindowPosition(winPosX, winPosY);
 	}
-
-	// Create a new Game State - this is a general game controlling class
-	BiPlaneGameState *gs = new BiPlaneGameState();
-
+	
+	// Hide the mouse pointer; CEGUI handles this
+	dbHideMouse();
 
 	// This forces the timer to initialise
-	MyTimer::get();
+	MyTimer *timer = &MyTimer::get();
 	float t;
 
-	// our main loop
-	while (LoopGDK()) {
+
+	// Create a new Game State - this is a general game controlling class
+	BiPlaneGameState *gsGame = new BiPlaneGameState();
+
+	// We'll need a start-up menu	
+	StartMenuGameState *gsMenu = new StartMenuGameState();
+	
+	// a Loop State holder
+	bool loopState = TRUE;
+
+	// This is for the Start Menu loop
+	//while (LoopGDK()) {
+	do {
 		// Tick the timer & frame rate for this loop
-		MyTimer::get().tick();
-		t = MyTimer::get().getT();
+		timer->tick();
+		t = timer->getT();
+		dbText(0, 0, dbStr((float)(1.0 / t)));
+
+		loopState &= gsGame->update(t);
+		loopState &= gsMenu->update(t);
+
+		dbSync();
+	} while (loopState && LoopGDK());
+	
+
+
+
+	loopState = TRUE;
+	// our main loop
+	//while (LoopGDK()) {
+	do {
+		// Tick the timer & frame rate for this loop
+		timer->tick();
+		t = timer->getT();
 		dbText(0, 0, dbStr((float)(1.0 / t)));
 
 		// Issue an Update to the GameState system, passing the frameTime into it
-		gs->update(t);
+		loopState &= gsGame->update(t);
 
 		// Update the display
 		dbSync();
-	}
+	} while (loopState && LoopGDK());
 
 	// Do a little house keeping
-	delete gs;
+	delete gsGame;
+	delete gsMenu;
 	return;
 }
