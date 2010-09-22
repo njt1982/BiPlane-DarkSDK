@@ -53,8 +53,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="enet.lib ws2_32.lib CEGUIBase.lib CEGUICoronaImageCodec.lib CEGUIDevILImageCodec.lib CEGUIDirect3D9Renderer.lib CEGUIExpatParser.lib CEGUIFalagardWRBase.lib CEGUIFreeImageImageCodec.lib CEGUILuaScriptModule.lib CEGUIOpenGLRenderer.lib CEGUISILLYImageCodec.lib CEGUITGAImageCodec.lib tolua++.lib"
-				AdditionalLibraryDirectories="&quot;$(ENET_LIB_PATH)\Release&quot;;&quot;$(CEGUI_LIB_PATH)\lib&quot;"
+				AdditionalDependencies="enet.lib CEGUIBase.lib CEGUICoronaImageCodec.lib CEGUIDevILImageCodec.lib CEGUIDirect3D9Renderer.lib CEGUIExpatParser.lib CEGUIFalagardWRBase.lib CEGUIFreeImageImageCodec.lib CEGUILuaScriptModule.lib CEGUIOpenGLRenderer.lib CEGUISILLYImageCodec.lib CEGUITGAImageCodec.lib tolua++.lib"
+				AdditionalLibraryDirectories="&quot;$(ENET_LIB_PATH)\Debug&quot;;&quot;$(CEGUI_LIB_PATH)\lib&quot;"
 				IgnoreDefaultLibraryNames="libcmtd, msvcrt, atls"
 				GenerateDebugInformation="true"
 				SubSystem="2"

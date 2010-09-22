@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-// #include <enet/enet.h>
+#include <enet/enet.h>
 
 // Include some custom libraries
 #include "MyLib.h"				// Contains the Frame Timer amongst other things
@@ -77,6 +77,19 @@ void DarkGDK ( void ){
 	} while (loopState && LoopGDK());
 	
 
+
+	switch (gsMenu->getState()) {
+		// Start Server
+		case 1 :
+			break;
+
+		// Start Client
+		case 2 :
+			break;
+
+		// SOMETHING WENT WRONG!!
+		default : exit(-5);
+	}
 
 
 	loopState = TRUE;

@@ -2,6 +2,7 @@
 
 StartMenuGameState::StartMenuGameState(void) {
 	this->leftMouseDown = false;
+	this->state = 0;
 
 	LPDIRECT3DDEVICE9 device = dbGetDirect3DDevice( );
 	CEGUI::Direct3D9Renderer& guiRenderer = CEGUI::Direct3D9Renderer::create(device);
@@ -42,20 +43,67 @@ StartMenuGameState::StartMenuGameState(void) {
 	
 	CEGUI::Window* myRoot = wmgr.loadWindowLayout("Noodle.layout");
 	this->gui->setGUISheet(myRoot);
+
+	wmgr.getWindow("Root/frmMain/startServer")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&StartMenuGameState::clickHandler, this));
+	wmgr.getWindow("Root/frmMain/connect")->subscribeEvent    (CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&StartMenuGameState::clickHandler, this));
+	wmgr.getWindow("Root/frmConnect/connect")->subscribeEvent (CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&StartMenuGameState::clickHandler, this));
+	wmgr.getWindow("Root/frmConnect/cancel")->subscribeEvent  (CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&StartMenuGameState::clickHandler, this));
 }
 
 
+bool StartMenuGameState::clickHandler(const CEGUI::EventArgs &event) {
+    const CEGUI::MouseEventArgs& me = static_cast<const CEGUI::MouseEventArgs&>(event);
+	CEGUI::String senderID = me.window->getName();
+
+	if (senderID == "Root/frmMain/startServer") {
+		this->state = 1;
+		return true;
+	}
+	else if (senderID == "Root/frmConnect/connect") {
+		this->state = 2;
+		return true;
+	}
+	else if (senderID == "Root/frmMain/connect" ) {
+		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+		wmgr.getWindow("Root/frmMain")->hide();
+		wmgr.getWindow("Root/frmConnect")->show();
+		wmgr.getWindow("Root/frmConnect")->activate();
+		return true;
+	}
+	else if (senderID == "Root/frmConnect/cancel") {
+		CEGUI::WindowManager& wmgr = CEGUI::WindowManager::getSingleton();
+		wmgr.getWindow("Root/frmConnect")->hide();
+		wmgr.getWindow("Root/frmMain")->show();
+		wmgr.getWindow("Root/frmMain")->activate();
+		return true;
+	}
+
+	return false;
+}
+
+
+
 bool StartMenuGameState::update(float t) {
+	// Push the mouse position to the GUI handler
+	this->gui->injectMousePosition((float)dbMouseX(), (float)dbMouseY());
+
+	// Get the mouse buttons status
 	int mouseButtons = dbMouseClick();
 
+	// If we previously have not pressed the left button...
 	if(!leftMouseDown) {
+		/// and the left button is now pressed (using a bitmask)
 		if((mouseButtons & 0x01) == 0x01) {
+			// Then we have pressed it - and inject the event to the gui handler
 			leftMouseDown = true;
 			this->gui->injectMouseButtonDown(CEGUI::LeftButton);
 		}
 	}
+	// Otherwise we have previously pressed the button...
 	else {
+		// .. Are we pressing it now though? If not...
 		if((mouseButtons & 0x01) == 0x00) {
+			// ... then remove the semaphore and send an event to the gui handler
 			leftMouseDown = false;
 			this->gui->injectMouseButtonUp(CEGUI::LeftButton);
 		}
@@ -86,12 +134,14 @@ bool StartMenuGameState::update(float t) {
 	}
 	*/
 
-	this->gui->injectMousePosition((float)dbMouseX(), (float)dbMouseY());
 
 	this->gui->renderGUI();
 
-	return true;
+	return (this->state == 0);
 }
 
+int StartMenuGameState::getState(void) {
+	return this->state;
+}
 
 StartMenuGameState::~StartMenuGameState(void) {}
